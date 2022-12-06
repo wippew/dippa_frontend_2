@@ -40,10 +40,12 @@ const App = () => {
         const vehicle = currentRes.vehicle;
         const coordinates = currentRes.geometry.coordinates;
         const order = currentRes.order;
+        const el = document.createElement('div');
+        el.className = 'marker';
+        el.innerHTML = '<span><b>' + (i + 1) + '</b></span>'
         if (vehicle == "0") {
-          new mapboxgl.Marker({
-            color: "#FF00FF"
-          })
+          el.color = "#FF00FF";
+          new mapboxgl.Marker(el)
             .setLngLat(coordinates)
             .setPopup(new mapboxgl.Popup({closeOnClick: false, closeButton: false, className:"testboss"}).setText(order))
             .addTo(map)
