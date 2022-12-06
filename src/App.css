@@ -36,3 +36,29 @@
     transform: rotate(360deg);
   }
 }
+
+/* src/App.css */
+.map-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+
+.marker {
+  background-color: green;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.testboss {
+  max-width: 5px;
+  max-height: 5px;
+}
+
+
+

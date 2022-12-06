@@ -1,0 +1,105 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "DEPOT0",
+        "vehicle": "0",
+        "order": "0",
+        "geometry": {
+          "type": "Point",          
+          "coordinates": [22.30008653511428, 60.43000065672325]
+        }
+      },
+      {
+        "type": "RUMPUTARKASTUS_1V",
+        "vehicle": "0",
+        "order": "1",
+        "geometry": {
+          "type": "Point",          
+          "coordinates": [22.32498653511428, 60.43922265672325]
+        }
+      },
+      {
+        "type": "RUMPUTARKASTUS_1V",
+        "vehicle": "0",
+        "order": "2",
+        "geometry": {
+          "type": "Point",
+          
+          "coordinates": [22.360918847539494, 60.43937464996765]
+        }
+      },
+      {
+        "type": "RUMPUTARKASTUS_1V",
+        "vehicle": "0",
+        "order": "3",
+        "geometry": {
+          "type": "Point",
+          
+          "coordinates": [22.338532504743725, 60.437520385889826]
+        }
+      },
+      {
+        "type": "RUMPUTARKASTUS_1V",
+        "vehicle": "0",
+        "order": "4",
+        "geometry": {
+          "type": "Point",
+          
+          "coordinates": [22.360008847539494, 60.43007464996765]
+        }
+      },
+
+
+
+
+      {
+        "type": "DEPOT1",
+        "vehicle": "1",
+        "order": "0",
+        "geometry": {
+          "type": "Point",
+          
+          "coordinates": [23.399901717992215, 60.878438]
+        }
+      },
+      {
+        "type": "RUMPUTARKASTUS_1V",
+        "vehicle": "1",
+        "order": "1",
+        "geometry": {
+          "type": "Point",
+          
+          "coordinates": [23.075176902191508, 60.85771764617159]
+        }
+      },
+      
+      {
+        "type": "SILTATARKASTUS_1V",
+        "vehicle": "1",
+        "order": "2",
+        "geometry": {
+          "type": "Point",      
+          "coordinates": [23.305401717992215, 60.89273503424375]
+        }
+      },
+      {
+        "type": "SILTATARKASTUS_1V",
+        "vehicle": "1",
+        "order": "3",
+        "geometry": {
+          "type": "Point",          
+          "coordinates": [23.26209408983668, 60.83503810164234]
+        }
+      },
+      {
+        "type": "SILTATARKASTUS_1V",
+        "vehicle": "1",
+        "order": "4",
+        "geometry": {
+          "type": "Point",          
+          "coordinates": [23.27389408983668, 60.87643810164234]
+        }
+      }
+    ]
+  }
