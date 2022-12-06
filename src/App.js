@@ -19,7 +19,7 @@ const App = () => {
       // See style options here: https://docs.mapbox.com/api/maps/#styles
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [23.252894, 60.875438],
-      zoom: 12.5,
+      zoom: 10,
     });
 
     // add navigation control (the +/- zoom buttons)
@@ -40,29 +40,26 @@ const App = () => {
         const vehicle = currentRes.vehicle;
         const coordinates = currentRes.geometry.coordinates;
         const order = currentRes.order;
-        const el = document.createElement('div');
-        el.className = 'marker';
-        el.innerHTML = '<span><b>' + (i + 1) + '</b></span>'
+        const type = currentRes.type;
+        const el = document.createElement('div');        
         if (vehicle == "0") {
-          el.color = "#FF00FF";
+          el.className = 'marker';
+          el.innerHTML = '<span><b>' + order  + '</b></span>'
           new mapboxgl.Marker(el)
             .setLngLat(coordinates)
-            .setPopup(new mapboxgl.Popup({closeOnClick: false, closeButton: false, className:"testboss"}).setText(order))
+            .setPopup(new mapboxgl.Popup({closeButton: false, className:"testboss", }).setText(type))
             .addTo(map)
-            .togglePopup();
         } else if(vehicle == "1") {
-          new mapboxgl.Marker({
-            color: "#0000FF"
-          })
+          el.className = 'marker2';
+          el.innerHTML = '<span><b>' + order  + '</b></span>'
+          new mapboxgl.Marker(el)
             .setLngLat(coordinates)
-            .setPopup(new mapboxgl.Popup({closeOnClick: false, closeButton: false, className:"testboss"}).setText(order))
+            .setPopup(new mapboxgl.Popup({closeButton: false, className:"testboss", }).setText(type))
             .addTo(map)
-            .togglePopup();
         }
         
       }
     });
-
 
     // clean up on unmount
     return () => map.remove();

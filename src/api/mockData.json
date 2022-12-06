@@ -11,7 +11,7 @@
         }
       },
       {
-        "type": "RUMPUTARKASTUS_1V",
+        "type": "KAAPIT_JA_KOJUT_12KK",
         "vehicle": "0",
         "order": "1",
         "geometry": {
@@ -30,7 +30,7 @@
         }
       },
       {
-        "type": "RUMPUTARKASTUS_1V",
+        "type": "KAAPIT_JA_KOJUT_12KK",
         "vehicle": "0",
         "order": "3",
         "geometry": {
@@ -40,7 +40,7 @@
         }
       },
       {
-        "type": "RUMPUTARKASTUS_1V",
+        "type": "VAIHDE_2V_HUOLTO",
         "vehicle": "0",
         "order": "4",
         "geometry": {
@@ -64,7 +64,7 @@
         }
       },
       {
-        "type": "RUMPUTARKASTUS_1V",
+        "type": "VAIHDE_2V_HUOLTO",
         "vehicle": "1",
         "order": "1",
         "geometry": {
@@ -84,7 +84,7 @@
         }
       },
       {
-        "type": "SILTATARKASTUS_1V",
+        "type": "VAIHDE_2V_HUOLTO",
         "vehicle": "1",
         "order": "3",
         "geometry": {
@@ -93,7 +93,7 @@
         }
       },
       {
-        "type": "SILTATARKASTUS_1V",
+        "type": "KAAPIT_JA_KOJUT_12KK",
         "vehicle": "1",
         "order": "4",
         "geometry": {
