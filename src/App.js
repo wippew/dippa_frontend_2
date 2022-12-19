@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom'
 import Marker from './components/Marker';
 import './App.css';
 import fetchFakeData from './api/fetchFakeData';
+import testFetch from './api/RestApiCalls';
 <pre>{process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}</pre>
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
@@ -22,10 +23,44 @@ const App = () => {
       zoom: 10,
     });
 
+    const test = testFetch();
     // add navigation control (the +/- zoom buttons)
     map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
-    /* src/App.js */
-    /* src/App.js */
+
+
+    const positions = [
+      [22.30008653511428, 60.43000065672325],
+      [22.32498653511428, 60.43922265672325],
+      [22.360918847539494, 60.43937464996765]
+    ];
+
+    map.on('load', () => {
+      map.addSource('route', {
+        'type': 'geojson',
+        'data': {
+          'type': 'Feature',
+          'properties': {},
+          'geometry': {
+            'type': 'LineString',
+            'coordinates': positions
+          }
+        }
+      });
+      map.addLayer({
+        'id': 'route',
+        'type': 'line',
+        'source': 'route',
+        'layout': {
+          'line-join': 'round',
+          'line-cap': 'round'
+        },
+        'paint': {
+          'line-color': '#000000',
+          'line-width': 8
+        }
+      });
+    });
+
 
     map.on('load', async () => {
       // get center coordinates
@@ -41,23 +76,23 @@ const App = () => {
         const coordinates = currentRes.geometry.coordinates;
         const order = currentRes.order;
         const type = currentRes.type;
-        const el = document.createElement('div');        
+        const el = document.createElement('div');
         if (vehicle == "0") {
           el.className = 'marker';
-          el.innerHTML = '<span><b>' + order  + '</b></span>'
+          el.innerHTML = '<span><b>' + order + '</b></span>'
           new mapboxgl.Marker(el)
             .setLngLat(coordinates)
-            .setPopup(new mapboxgl.Popup({closeButton: false, className:"testboss", }).setText(type))
+            .setPopup(new mapboxgl.Popup({ closeButton: false, className: "testboss", }).setText(type))
             .addTo(map)
-        } else if(vehicle == "1") {
+        } else if (vehicle == "1") {
           el.className = 'marker2';
-          el.innerHTML = '<span><b>' + order  + '</b></span>'
+          el.innerHTML = '<span><b>' + order + '</b></span>'
           new mapboxgl.Marker(el)
             .setLngLat(coordinates)
-            .setPopup(new mapboxgl.Popup({closeButton: false, className:"testboss", }).setText(type))
+            .setPopup(new mapboxgl.Popup({ closeButton: false, className: "testboss", }).setText(type))
             .addTo(map)
         }
-        
+
       }
     });
 
