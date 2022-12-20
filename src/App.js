@@ -1,20 +1,29 @@
 /* src/App.js */
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, createRef } from 'react';
 import mapboxgl from 'mapbox-gl';
-import ReactDOM from 'react-dom'
+//import ReactDOM from 'react-dom'
 import Marker from './components/Marker';
 import './App.css';
 import fetchFakeData from './api/fetchFakeData';
 import testFetch from './api/RestApiCalls';
 import drawLayersForVehicle from './components/DrawFunctions';
 import { getSuggestedQuery } from '@testing-library/react';
+import MyForm from './components/MyForm';
+
 <pre>{process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}</pre>
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
+const handleChange = (e, { name, value }) => {
+  console.log(name, value)
+  this.setState({ [name]: value })
+}
+
 const App = () => {
   const mapContainerRef = useRef(null);
   const vehicleCount = 2;
+  /* References */
+  const vehicleRef = createRef()
   // initialize map when component mounts
   useEffect(() => {
     const map = new mapboxgl.Map({
@@ -28,17 +37,6 @@ const App = () => {
 
     // add navigation control (the +/- zoom buttons)
     map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
-
-
-    // const positions = [
-    //   [22.30008653511428, 60.43000065672325],
-    //   [22.32498653511428, 60.43922265672325],
-    //   [22.360918847539494, 60.43937464996765]
-    // ];
-
-    // map.on('load', () => {
-    //   drawLayers(map, positions)
-    // });
 
 
     map.on('load', async () => {
@@ -92,15 +90,34 @@ const App = () => {
         vehiclePositions.push(vehiclePositions[0]);
         drawLayersForVehicle(map, vehiclePositions, i);
       }
-      
-      
+
+
     });
 
     // clean up on unmount
     return () => map.remove();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return <div className="map-container" ref={mapContainerRef} />;
+  //return <div className="map-container" ref={mapContainerRef} />;
+  return (
+    <div>
+      {/* <div className="sidebar">
+        Longitude: "ASD" | Latitude: "ASD" | Zoom: "ASD"
+      </div> */}
+      {/* <form className="sidebar">
+      <fieldset>
+         <label>
+           <p>VehicleCount</p>
+           <input name="name" value={vehicleRef} onChange={handleChange}/>
+         </label>
+       </fieldset>
+       <button type="submit">Submit</button>
+      </form> */}
+      <MyForm/>;
+      <div ref={mapContainerRef} className="map-container" />
+    </div>
+  );
 };
+
 
 export default App;
