@@ -13,6 +13,9 @@ const fetchFakeData = (lng, lat) => {
       features: newFeaturesList,
     });
   };
+
+
+
   
   /**
    * Generates a random point within 0.025 radius of map center coordinates.

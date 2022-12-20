@@ -6,74 +6,59 @@ import Marker from './components/Marker';
 import './App.css';
 import fetchFakeData from './api/fetchFakeData';
 import testFetch from './api/RestApiCalls';
+import drawLayersForVehicle from './components/DrawFunctions';
+import { getSuggestedQuery } from '@testing-library/react';
 <pre>{process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}</pre>
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 const App = () => {
   const mapContainerRef = useRef(null);
-
+  const vehicleCount = 2;
   // initialize map when component mounts
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
       // See style options here: https://docs.mapbox.com/api/maps/#styles
       style: 'mapbox://styles/mapbox/streets-v11',
-      center: [23.252894, 60.875438],
+      center: [22.30008653511428, 60.43000065672325],
       zoom: 10,
     });
 
-    const test = testFetch();
+
     // add navigation control (the +/- zoom buttons)
     map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
 
-    const positions = [
-      [22.30008653511428, 60.43000065672325],
-      [22.32498653511428, 60.43922265672325],
-      [22.360918847539494, 60.43937464996765]
-    ];
+    // const positions = [
+    //   [22.30008653511428, 60.43000065672325],
+    //   [22.32498653511428, 60.43922265672325],
+    //   [22.360918847539494, 60.43937464996765]
+    // ];
 
-    map.on('load', () => {
-      map.addSource('route', {
-        'type': 'geojson',
-        'data': {
-          'type': 'Feature',
-          'properties': {},
-          'geometry': {
-            'type': 'LineString',
-            'coordinates': positions
-          }
-        }
-      });
-      map.addLayer({
-        'id': 'route',
-        'type': 'line',
-        'source': 'route',
-        'layout': {
-          'line-join': 'round',
-          'line-cap': 'round'
-        },
-        'paint': {
-          'line-color': '#000000',
-          'line-width': 8
-        }
-      });
-    });
+    // map.on('load', () => {
+    //   drawLayers(map, positions)
+    // });
 
 
     map.on('load', async () => {
       // get center coordinates
       const { lng, lat } = map.getCenter();
       // fetch new data
-      const results = await fetchFakeData(lng, lat);
-
+      // const results = await fetchFakeData(lng, lat);
+      const test = await testFetch();
+      const positions = [];
       // iterate through the feature collection and append marker to the map for each feature
-      for (let i = 0; i < results.features.length; i++) {
-        const currentRes = results.features[i];
+      for (let i = 0; i < test.length; i++) {
+        const currentRes = test[i];
         const id = i;
         const vehicle = currentRes.vehicle;
-        const coordinates = currentRes.geometry.coordinates;
+        const coordinates = currentRes.coordinates;
+        positions.push({
+          key: vehicle,
+          value: coordinates
+        });
+
         const order = currentRes.order;
         const type = currentRes.type;
         const el = document.createElement('div');
@@ -94,6 +79,21 @@ const App = () => {
         }
 
       }
+
+
+      for (let i = 0; i < vehicleCount; i++) {
+        const vehiclePositions = [];
+        for (let entry of positions) {
+          if (entry.key == i.toString()) {
+            vehiclePositions.push(entry.value);
+          }
+          const asd = "ASD";
+        }
+        vehiclePositions.push(vehiclePositions[0]);
+        drawLayersForVehicle(map, vehiclePositions, i);
+      }
+      
+      
     });
 
     // clean up on unmount
