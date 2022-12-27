@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { StoreContext } from './Store';
-import React from 'react';
+import React, { useContext } from 'react';
 import { observer } from "mobx-react";
 
 
 const MyForm = () => {
-  const store = React.useContext(StoreContext)
+  const store = useContext(StoreContext)
   const [name, setName] = useState("");
 
   const handleSubmit = (event) => {

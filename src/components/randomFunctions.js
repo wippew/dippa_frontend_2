@@ -6,7 +6,8 @@ const getRoutesAndDrawOnMap = async (map, vehicleCount) => {
     const numberVehicleCount = Number(vehicleCount);
     // fetch new data
     // const results = await fetchFakeData(lng, lat);
-    const test = await testFetch(vehicleCount);
+    const test = await testFetch();
+    console.log("ASDASDASDASDASDASDASD");
     const positions = [];
     // iterate through the feature collection and append marker to the map for each feature
     for (let i = 0; i < test.length; i++) {

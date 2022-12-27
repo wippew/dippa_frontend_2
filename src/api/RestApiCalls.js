@@ -1,9 +1,11 @@
 import axios from 'axios'
 
-const testFetch = async (vehicleCount) => {
-    const url = "http://localhost:8080/getRoutes"
+const testFetch = async () => {
+    const url = "http://localhost:8080/getRoutes2"
     try {
-        const response = await axios.get(url)
+        console.log("NOTHING YET FOUND");
+        const response = await axios.get(url);
+        console.log("NOW FOUND");
         return response.data
     } catch (error) {
         console.error(error)
