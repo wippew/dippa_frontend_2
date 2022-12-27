@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const testFetch = async () => {
+const testFetch = async (vehicleCount) => {
     const url = "http://localhost:8080/getRoutes"
     try {
         const response = await axios.get(url)
