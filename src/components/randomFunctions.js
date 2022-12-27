@@ -41,7 +41,7 @@ const getRoutesAndDrawOnMap = async (map, vehicleCount) => {
 
     }
 
-
+    
     for (let i = 0; i < numberVehicleCount; i++) {
         const vehiclePositions = [];
         for (let entry of positions) {
