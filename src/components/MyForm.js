@@ -1,32 +1,29 @@
 import { useState } from 'react';
 import { StoreContext } from './Store';
 import React, { useContext } from 'react';
-import { observer } from "mobx-react";
+import { useObserver } from 'mobx-react'
+import getRoutes from './randomFunctions'
+import testFetch from '../api/RestApiCalls';
 
 
-const MyForm = () => {
+export const MyForm = () => {
   const store = useContext(StoreContext)
-  const [name, setName] = useState("");
-
-  const handleSubmit = (event) => {
-    const testtest = store.getVehicleCount();
-    store.setVehicleCount(5);
-    store.vehicleCount = 3;
-    const abasbbs = store.getVehicleCount();
-    console.log("asdasdads");
+  //const [name, setName] = useState("");
+  console.log("MYFORM RENDERS");
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const routes = await getRoutes(5);
+    console.log("at handleSubmit");
   }
-  return (
+  return useObserver(() => (
     <form className="sidebar" onSubmit={handleSubmit}>
       <fieldset>
         <label>
           <p>VehicleCount</p>
-          <input name="name" value={name} onChange={(e) => setName(e.target.value)} />
+          <input name="name" />
         </label>
       </fieldset>
       <button type="submit">Submit</button>
     </form>
-  )
+  ))
 }
-
-
-export default observer(MyForm);

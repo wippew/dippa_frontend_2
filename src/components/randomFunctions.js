@@ -2,12 +2,39 @@ import testFetch from '../api/RestApiCalls';
 import mapboxgl from 'mapbox-gl';
 import drawLayersForVehicle from './DrawFunctions';
 
+
+
+const getRoutes = async (vehicleCount) => {
+    const numberVehicleCount = Number(vehicleCount);
+    // fetch new data
+    // const results = await fetchFakeData(lng, lat);
+    const test = await testFetch();
+    const positions = [];
+    // iterate through the feature collection and append marker to the map for each feature
+    for (let i = 0; i < test.length; i++) {
+        const currentRes = test[i];
+        const id = i;
+        const vehicle = currentRes.vehicle;
+        const coordinates = currentRes.coordinates;
+        const order = currentRes.order;
+        const type = currentRes.type;
+
+        positions.push({
+            id: id,
+            vehicle: vehicle,
+            coordinates: coordinates,
+            order: order,
+            type: type
+        });
+    }
+    return positions;
+}
+
 const getRoutesAndDrawOnMap = async (map, vehicleCount) => {
     const numberVehicleCount = Number(vehicleCount);
     // fetch new data
     // const results = await fetchFakeData(lng, lat);
     const test = await testFetch();
-    console.log("ASDASDASDASDASDASDASD");
     const positions = [];
     // iterate through the feature collection and append marker to the map for each feature
     for (let i = 0; i < test.length; i++) {
@@ -42,18 +69,18 @@ const getRoutesAndDrawOnMap = async (map, vehicleCount) => {
     }
 
     
-    for (let i = 0; i < numberVehicleCount; i++) {
-        const vehiclePositions = [];
-        for (let entry of positions) {
-            if (entry.key == i.toString()) {
-                vehiclePositions.push(entry.value);
-            }
-        }
-        vehiclePositions.push(vehiclePositions[0]);
-        drawLayersForVehicle(map, vehiclePositions, i);
-    }
+    // for (let i = 0; i < numberVehicleCount; i++) {
+    //     const vehiclePositions = [];
+    //     for (let entry of positions) {
+    //         if (entry.key == i.toString()) {
+    //             vehiclePositions.push(entry.value);
+    //         }
+    //     }
+    //     vehiclePositions.push(vehiclePositions[0]);
+    //     drawLayersForVehicle(map, vehiclePositions, i);
+    // }
 
 
 }
 
-export default getRoutesAndDrawOnMap;
+export default getRoutes;
