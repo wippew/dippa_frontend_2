@@ -8,6 +8,11 @@ export const StoreContext = React.createContext()
 export const StoreProvider = ({ children }) => {
   const store = useLocalObservable(() => ({
 
+    positionsDrawn: false,
+    positions: [],
+    setPositions: (value) => {
+      store.positions = value;
+    },
     vehicleCount: null,
     setVehicleCount: (value) => {
       store.vehicleCount = value;

@@ -1,18 +1,17 @@
 import testFetch from '../api/RestApiCalls';
 import mapboxgl from 'mapbox-gl';
-import drawLayersForVehicle from './DrawFunctions';
 
 
 
-const getRoutes = async (vehicleCount) => {
+export const getRoutes = async (vehicleCount) => {
     const numberVehicleCount = Number(vehicleCount);
     // fetch new data
     // const results = await fetchFakeData(lng, lat);
-    const test = await testFetch();
+    const test = await testFetch(vehicleCount);
     const positions = [];
     // iterate through the feature collection and append marker to the map for each feature
-    for (let i = 0; i < test.length; i++) {
-        const currentRes = test[i];
+    for (let i = 0; i < test.features.length; i++) {
+        const currentRes = test.features[i];
         const id = i;
         const vehicle = currentRes.vehicle;
         const coordinates = currentRes.coordinates;
@@ -27,10 +26,43 @@ const getRoutes = async (vehicleCount) => {
             type: type
         });
     }
+
     return positions;
 }
 
-const getRoutesAndDrawOnMap = async (map, vehicleCount) => {
+export const drawPositionsOnMap = (positionsMap, map) => {
+    // iterate through the feature collection and append marker to the map for each feature
+    for (let i = 0; i < positionsMap.length; i++) {
+        const currentRes = positionsMap[i];
+        const id = i;
+        const vehicle = currentRes.vehicle;
+        const coordinates = currentRes.coordinates;
+        const swappedCoordinates = [];
+        swappedCoordinates.push(coordinates[1]);
+        swappedCoordinates.push(coordinates[0]);
+        const order = currentRes.order;
+        const type = currentRes.type;
+        const el = document.createElement('div');
+        if (vehicle == "0") {
+            console.log("AAAAAAAAA");
+            el.className = 'marker';
+            el.innerHTML = '<span><b>' + order + '</b></span>'
+            new mapboxgl.Marker(el)
+                .setLngLat(swappedCoordinates)
+                .setPopup(new mapboxgl.Popup({ closeButton: false, className: "testboss", }).setText(type))
+                .addTo(map)
+        } else if (vehicle == "1") {
+            el.className = 'marker2';
+            el.innerHTML = '<span><b>' + order + '</b></span>'
+            new mapboxgl.Marker(el)
+                .setLngLat(swappedCoordinates)
+                .setPopup(new mapboxgl.Popup({ closeButton: false, className: "testboss", }).setText(type))
+                .addTo(map)
+        }
+    }
+}
+
+export const getRoutesAndDrawOnMap = async (map, vehicleCount) => {
     const numberVehicleCount = Number(vehicleCount);
     // fetch new data
     // const results = await fetchFakeData(lng, lat);
@@ -68,7 +100,7 @@ const getRoutesAndDrawOnMap = async (map, vehicleCount) => {
 
     }
 
-    
+
     // for (let i = 0; i < numberVehicleCount; i++) {
     //     const vehiclePositions = [];
     //     for (let entry of positions) {
@@ -82,5 +114,6 @@ const getRoutesAndDrawOnMap = async (map, vehicleCount) => {
 
 
 }
+export default {
 
-export default getRoutes;
+}

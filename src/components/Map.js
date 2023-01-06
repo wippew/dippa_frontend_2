@@ -1,11 +1,12 @@
 /* src/App.js */
 import React, { useRef, useEffect, createRef, useContext } from 'react';
 import mapboxgl from 'mapbox-gl';
-import getRoutesAndDrawOnMap from './randomFunctions';
+import { drawPositionsOnMap } from './randomFunctions';
 import { StoreContext } from './Store';
 import { observer } from "mobx-react";
 import { isEmpty } from 'lodash'
 import { useObserver } from 'mobx-react'
+import { toJS } from 'mobx';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ2VvbWV0cml4ZGV2IiwiYSI6ImNrcHdoYjZsajAxMG4yd253aWIyeHRvdG4ifQ.kB-1WgIHJ3GELwh14NilPw'
 
@@ -29,14 +30,22 @@ export const Map = () => {
             // add navigation control (the +/- zoom buttons)
             map.current.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
         } else {
-            const test = store.renderMapTrigger;
-            //clearMap();
-            const vehicleCount = store.maintenanceTasks;
-            const asdasds = "asdasdasd";
+
+            const positionsAsJsArray = toJS(store.positions);
+            if (!isEmpty(positionsAsJsArray)) {
+                console.log("HERE AT DRAW");
+                const asdads = store.positionsDrawn;
+                if (!store.positionsDrawn) {
+                    console.log("NOT DRAWN");
+                    drawPositionsOnMap(positionsAsJsArray, map.current);
+                    store.positionsDrawn = true;
+                    //store.renderMap();
+                }
+            }
         }
         // clean up on unmount
         //return () => map.current.remove();
-    }, []);
+    }, [store.renderMapTrigger]);
 
     const observeMapChanges = () => {
         if (store.renderMapTrigger) {
