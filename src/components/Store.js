@@ -15,13 +15,8 @@ export const StoreProvider = ({ children }) => {
     setPositions: (value) => {
       store.positions = value;
     },
-    vehicleCount: null,
-    setVehicleCount: (value) => {
-      store.vehicleCount = value;
-    },
-    getVehicleCount: () => {
-      return store.vehicleCount;
-    },
+    depot1VehicleCount: null,
+    depot2VehicleCount: null,
     renderMapTrigger: false,
     renderMap: () => {
       store.renderMapTrigger = !store.renderMapTrigger

@@ -4,11 +4,12 @@ import drawLayersForVehicle from './DrawFunctions';
 
 
 
-export const getRoutes = async (vehicleCount) => {
-    const numberVehicleCount = Number(vehicleCount);
+export const getRoutes = async (depot1VehicleCount, depot2VehicleCount) => {
+    const depot1VehicleCountAsNumber = Number(depot1VehicleCount);
+    const depot2VehicleCountAsNumber = Number(depot2VehicleCount);
     // fetch new data
     // const results = await fetchFakeData(lng, lat);
-    const test = await testFetch(vehicleCount);
+    const test = await testFetch(depot1VehicleCountAsNumber, depot2VehicleCountAsNumber);
     const positions = [];
     // iterate through the feature collection and append marker to the map for each feature
     for (let i = 0; i < test.features.length; i++) {
