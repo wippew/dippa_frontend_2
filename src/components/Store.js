@@ -8,6 +8,7 @@ export const StoreContext = React.createContext()
 export const StoreProvider = ({ children }) => {
   const store = useLocalObservable(() => ({
 
+    markers: [],
     layersDrawn: false,
     positionsDrawn: false,
     positions: [],

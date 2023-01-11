@@ -3,7 +3,6 @@ import React, { useRef, useEffect, createRef, useContext } from 'react';
 import mapboxgl from 'mapbox-gl';
 import { drawLayers, drawPositionsOnMap } from './randomFunctions';
 import { StoreContext } from './Store';
-import { observer } from "mobx-react";
 import { isEmpty } from 'lodash'
 import { useObserver } from 'mobx-react'
 import { toJS } from 'mobx';
@@ -11,6 +10,14 @@ import { toJS } from 'mobx';
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ2VvbWV0cml4ZGV2IiwiYSI6ImNrcHdoYjZsajAxMG4yd253aWIyeHRvdG4ifQ.kB-1WgIHJ3GELwh14NilPw'
 
 export const Map = () => {
+
+    const clearMap = () => {
+        if (store.markers.length > 0) {
+            for (const currentMarker of store.markers) {
+                currentMarker.remove()
+            }
+        }
+    }
     const mapContainer = useRef(null);
     /* References */
     const store = useContext(StoreContext)
@@ -34,10 +41,10 @@ export const Map = () => {
             const positionsAsJsArray = toJS(store.positions);
             if (!isEmpty(positionsAsJsArray)) {
                 console.log("HERE AT DRAW");
-                const asdads = store.positionsDrawn;
                 if (!store.positionsDrawn) {
                     console.log("NOT DRAWN");
-                    drawPositionsOnMap(positionsAsJsArray, map.current);
+                    clearMap();
+                    drawPositionsOnMap(positionsAsJsArray, map.current, store);
                     store.positionsDrawn = true;
                     console.log(store.layersDrawn);
                     // if (store.layersDrawn == false && store.vehicleCount != null) {

@@ -31,7 +31,7 @@ export const getRoutes = async (vehicleCount) => {
     return positions;
 }
 
-export const drawPositionsOnMap = (positionsMap, map) => {
+export const drawPositionsOnMap = (positionsMap, map, store) => {
     // iterate through the feature collection and append marker to the map for each feature
     for (let i = 0; i < positionsMap.length; i++) {
         const currentRes = positionsMap[i];
@@ -48,17 +48,19 @@ export const drawPositionsOnMap = (positionsMap, map) => {
             console.log("AAAAAAAAA");
             el.className = 'marker';
             el.innerHTML = '<span><b>' + order + '</b></span>'
-            new mapboxgl.Marker(el)
+            const marker = new mapboxgl.Marker(el)
                 .setLngLat(swappedCoordinates)
                 .setPopup(new mapboxgl.Popup({ closeButton: false, className: "testboss", }).setText(type))
-                .addTo(map)
+                .addTo(map);
+            store.markers.push(marker);
         } else if (vehicle == "1") {
             el.className = 'marker2';
             el.innerHTML = '<span><b>' + order + '</b></span>'
-            new mapboxgl.Marker(el)
+            const marker = new mapboxgl.Marker(el)
                 .setLngLat(swappedCoordinates)
                 .setPopup(new mapboxgl.Popup({ closeButton: false, className: "testboss", }).setText(type))
-                .addTo(map)
+                .addTo(map);
+            store.markers.push(marker);
         }
     }
 }
