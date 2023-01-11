@@ -1,5 +1,6 @@
 import testFetch from '../api/RestApiCalls';
 import mapboxgl from 'mapbox-gl';
+import drawLayersForVehicle from './DrawFunctions';
 
 
 
@@ -100,7 +101,7 @@ export const getRoutesAndDrawOnMap = async (map, vehicleCount) => {
 
     }
 
-
+    
     // for (let i = 0; i < numberVehicleCount; i++) {
     //     const vehiclePositions = [];
     //     for (let entry of positions) {
@@ -113,6 +114,19 @@ export const getRoutesAndDrawOnMap = async (map, vehicleCount) => {
     // }
 
 
+}
+
+export const drawLayers = (positionsMap, map, vehicleCount) => {
+    
+    for (let i = 0; i < vehicleCount; i++) {
+        const newPositions = [];
+        for (let j = 0; j < positionsMap.length; j++) {
+            if (positionsMap[j].vehicle == '0') {
+                newPositions.push(positionsMap[j].coordinates);
+            }
+        }
+        drawLayersForVehicle(map, newPositions, i);
+    } 
 }
 export default {
 

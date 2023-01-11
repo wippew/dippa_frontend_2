@@ -13,6 +13,7 @@ export const MyForm = () => {
   console.log("MYFORM RENDERS");
   const handleSubmit = async (event) => {
     event.preventDefault();
+    store.vehicleCount = Number(name);
     const routes = await getRoutes(name);
     store.setPositions(toJS(routes));
     store.positionsDrawn = false;

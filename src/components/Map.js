@@ -1,7 +1,7 @@
 /* src/App.js */
 import React, { useRef, useEffect, createRef, useContext } from 'react';
 import mapboxgl from 'mapbox-gl';
-import { drawPositionsOnMap } from './randomFunctions';
+import { drawLayers, drawPositionsOnMap } from './randomFunctions';
 import { StoreContext } from './Store';
 import { observer } from "mobx-react";
 import { isEmpty } from 'lodash'
@@ -24,7 +24,7 @@ export const Map = () => {
                 container: mapContainer.current,
                 // See style options here: https://docs.mapbox.com/api/maps/#styles
                 style: 'mapbox://styles/mapbox/streets-v11',
-                center: [22.30008653511428, 60.43000065672325],
+                center: [24.878853391086857, 60.20673161432754],
                 zoom: 10,
             });
             // add navigation control (the +/- zoom buttons)
@@ -39,7 +39,13 @@ export const Map = () => {
                     console.log("NOT DRAWN");
                     drawPositionsOnMap(positionsAsJsArray, map.current);
                     store.positionsDrawn = true;
-                    //store.renderMap();
+                    console.log(store.layersDrawn);
+                    // if (store.layersDrawn == false && store.vehicleCount != null) {
+                    //     console.log("SHOULD DRAW LAYERS");
+                    //     drawLayers(positionsAsJsArray, map.current, Number(store.vehicleCount));
+                    //     store.layersDrawn = true;
+                    //     //store.renderMap();
+                    // }
                 }
             }
         }
