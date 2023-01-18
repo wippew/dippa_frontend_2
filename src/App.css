@@ -47,7 +47,7 @@
 }
 
 
-.marker {
+.marker0 {
   background-color: green;
   width: 20px;
   border-radius: 50%;
@@ -55,8 +55,32 @@
   text-align: center;
 }
 
-.marker2 {
+.marker1 {
   background-color: grey;
+  width: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  text-align: center;
+}
+
+.marker2 {
+  background-color: red;
+  width: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  text-align: center;
+}
+
+.marker3 {
+  background-color: blue;
+  width: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  text-align: center;
+}
+
+.marker4 {
+  background-color: blueviolet;
   width: 20px;
   border-radius: 50%;
   cursor: pointer;

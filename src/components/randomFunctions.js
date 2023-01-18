@@ -47,7 +47,7 @@ export const drawPositionsOnMap = (positionsMap, map, store) => {
         const el = document.createElement('div');
         if (vehicle == "0") {
             console.log("AAAAAAAAA");
-            el.className = 'marker';
+            el.className = 'marker0';
             el.innerHTML = '<span><b>' + order + '</b></span>'
             const marker = new mapboxgl.Marker(el)
                 .setLngLat(swappedCoordinates)
@@ -55,7 +55,39 @@ export const drawPositionsOnMap = (positionsMap, map, store) => {
                 .addTo(map);
             store.markers.push(marker);
         } else if (vehicle == "1") {
+            el.className = 'marker1';
+            el.innerHTML = '<span><b>' + order + '</b></span>'
+            const marker = new mapboxgl.Marker(el)
+                .setLngLat(swappedCoordinates)
+                .setPopup(new mapboxgl.Popup({ closeButton: false, className: "testboss", }).setText(type))
+                .addTo(map);
+            store.markers.push(marker);
+        } else if (vehicle == "2") {
             el.className = 'marker2';
+            el.innerHTML = '<span><b>' + order + '</b></span>'
+            const marker = new mapboxgl.Marker(el)
+                .setLngLat(swappedCoordinates)
+                .setPopup(new mapboxgl.Popup({ closeButton: false, className: "testboss", }).setText(type))
+                .addTo(map);
+            store.markers.push(marker);
+        } else if (vehicle == "3") {
+            el.className = 'marker3';
+            el.innerHTML = '<span><b>' + order + '</b></span>'
+            const marker = new mapboxgl.Marker(el)
+                .setLngLat(swappedCoordinates)
+                .setPopup(new mapboxgl.Popup({ closeButton: false, className: "testboss", }).setText(type))
+                .addTo(map);
+            store.markers.push(marker);
+        } else if (vehicle == "4") {
+            el.className = 'marker4';
+            el.innerHTML = '<span><b>' + order + '</b></span>'
+            const marker = new mapboxgl.Marker(el)
+                .setLngLat(swappedCoordinates)
+                .setPopup(new mapboxgl.Popup({ closeButton: false, className: "testboss", }).setText(type))
+                .addTo(map);
+            store.markers.push(marker);
+        } else if (vehicle == "5") {
+            el.className = 'marker5';
             el.innerHTML = '<span><b>' + order + '</b></span>'
             const marker = new mapboxgl.Marker(el)
                 .setLngLat(swappedCoordinates)
