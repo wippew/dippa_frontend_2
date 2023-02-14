@@ -46,7 +46,6 @@ export const drawPositionsOnMap = (positionsMap, map, store) => {
         const type = currentRes.type;
         const el = document.createElement('div');
         if (vehicle == "0") {
-            console.log("AAAAAAAAA");
             el.className = 'marker0';
             el.innerHTML = '<span><b>' + order + '</b></span>'
             const marker = new mapboxgl.Marker(el)
