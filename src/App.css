@@ -105,5 +105,20 @@
   border-radius: 4px;
   }
 
+.acceptButton {
+  background-color: rgba(32, 249, 3, 0.9);
+  padding: 6px 12px;
+  font-family: monospace;
+  z-index: 10;
+  width: 3.5cm;
+  height: 2cm;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 12px;
+  border-radius: 4px;
+}
+
+
 
 

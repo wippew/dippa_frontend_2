@@ -3,7 +3,6 @@ import { StoreContext } from './Store';
 import React, { useContext } from 'react';
 import { useObserver } from 'mobx-react'
 import { getRoutes } from './randomFunctions'
-import testFetch from '../api/RestApiCalls';
 import { toJS } from 'mobx';
 
 

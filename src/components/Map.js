@@ -22,7 +22,6 @@ export const Map = () => {
     /* References */
     const store = useContext(StoreContext)
     const map = useRef();
-    console.log("MAP RENDERS");
     // initialize map when component mounts
     useEffect(() => {
         if (isEmpty(map.current)) {
@@ -40,19 +39,10 @@ export const Map = () => {
 
             const positionsAsJsArray = toJS(store.positions);
             if (!isEmpty(positionsAsJsArray)) {
-                console.log("HERE AT DRAW");
                 if (!store.positionsDrawn) {
-                    console.log("NOT DRAWN");
                     clearMap();
                     drawPositionsOnMap(positionsAsJsArray, map.current, store);
                     store.positionsDrawn = true;
-                    console.log(store.layersDrawn);
-                    // if (store.layersDrawn == false && store.vehicleCount != null) {
-                    //     console.log("SHOULD DRAW LAYERS");
-                    //     drawLayers(positionsAsJsArray, map.current, Number(store.vehicleCount));
-                    //     store.layersDrawn = true;
-                    //     //store.renderMap();
-                    // }
                 }
             }
         }

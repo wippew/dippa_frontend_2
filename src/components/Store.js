@@ -15,6 +15,9 @@ export const StoreProvider = ({ children }) => {
     setPositions: (value) => {
       store.positions = value;
     },
+    getPositions: () => {
+      return store.positions;
+    },
     depot1VehicleCount: null,
     depot2VehicleCount: null,
     renderMapTrigger: false,
