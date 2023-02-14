@@ -10,8 +10,6 @@ import { useObserver } from 'mobx-react'
 //<pre>{process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}</pre>
 
 export const App = () => {
-
-  console.log("APP RENDERS");
   return useObserver(() => (
     <>
       <StoreProvider>
