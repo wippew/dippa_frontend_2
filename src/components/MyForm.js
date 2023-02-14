@@ -11,7 +11,6 @@ export const MyForm = () => {
   const store = useContext(StoreContext)
   const [depot1, setDepot1] = useState("");
   const [depot2, setDepot2] = useState("");
-  console.log("MYFORM RENDERS");
   const handleSubmit = async (event) => {
     event.preventDefault();
     store.depot1VehicleCount = Number(depot1);
@@ -20,7 +19,6 @@ export const MyForm = () => {
     store.setPositions(toJS(routes));
     store.positionsDrawn = false;
     store.renderMap();
-    console.log("at handleSubmit, map rendered");
   }
   return useObserver(() => (
     <form className="sidebar" onSubmit={handleSubmit}>
