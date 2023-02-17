@@ -2,9 +2,10 @@ import axios from 'axios'
 
 const testFetch = async (depot1VehicleCount, depot2VehicleCount) => {
     const testJson = createMockJsonObject();
-    const url = 'http://localhost:8080/getRoutes';
+    const url = 'http://localhost:8080/routes';
     try {
-        const response = await axios.post(url,JSON.stringify(testJson));
+        const response = await axios.post(url, testJson);
+        console.log(response.data);
         return response.data;
     } catch (error) {
         console.error(error)
@@ -21,21 +22,22 @@ const createMockJsonObject = () => {
 
 const createDepot = (emptyJson) => {    
     const newDepot = {};
-    newDepot.depotName = "depot1";
+    newDepot.depotName = "depot0";
+    newDepot.order = "0";
     const coordinates = {};
-    coordinates.x = 60.12;
-    coordinates.y = 21.12;
+    coordinates.lat = 60.53811759606013;
+    coordinates.lon = 22.418483915615745;
     const vehicles = [];
     newDepot.coordinates = coordinates;
     newDepot.vehicles = vehicles;    
-    addVehicleToDepot("vehicle1", newDepot.vehicles);
-    addVehicleToDepot("vehicle2", newDepot.vehicles);
+    addVehicleToDepot(0, newDepot.vehicles);
     emptyJson.push(newDepot);
 }
 
 const addVehicleToDepot = (vehicleName, garageObject) => {
     const newVehicle = {};
     newVehicle.id = vehicleName;
+    newVehicle.resourceId = 63406;
     newVehicle.competence = 2;
     garageObject.push(newVehicle);
 }

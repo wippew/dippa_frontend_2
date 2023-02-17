@@ -15,7 +15,8 @@ export const App = () => {
   const store = useContext(StoreContext);
   const pressAccept = () => {
     alert("You are now pointing routes to their corresponding groups");
-    saveAssignments();
+    const test = store.fetchedRoutesJson;
+    saveAssignments(store.fetchedRoutesJson);
   }
 
   const styles = StyleSheet.create({
@@ -40,7 +41,7 @@ export const App = () => {
   });
 
   const renderAcceptButton = () => {
-    if (isEmpty(store.getPositions())) {
+    if (!isEmpty(store.getPositions())) {
       return <Pressable style={styles.button} onPress={pressAccept}>
         <Text style={styles.text}>Hyväksy</Text>
       </Pressable>

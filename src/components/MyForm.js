@@ -14,7 +14,7 @@ export const MyForm = () => {
     event.preventDefault();
     store.depot1VehicleCount = Number(depot1);
     store.depot2VehicleCount = Number(depot2);
-    const routes = await getRoutes(depot1, depot2);
+    const routes = await getRoutes(depot1, depot2, store);
     store.setPositions(toJS(routes));
     store.positionsDrawn = false;
     store.renderMap();
