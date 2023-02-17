@@ -7,13 +7,15 @@ import { useObserver } from 'mobx-react'
 import { isEmpty } from 'lodash'
 import { StoreContext } from './components/Store';
 import { Text, View, StyleSheet, Pressable } from 'react-native';
+import { saveAssignments } from './api/AssignService';
 
 //<pre>{process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}</pre>
 
 export const App = () => {
   const store = useContext(StoreContext);
   const pressAccept = () => {
-    alert("You are a donkey my dearest sir");
+    alert("You are now pointing routes to their corresponding groups");
+    saveAssignments();
   }
 
   const styles = StyleSheet.create({
@@ -38,7 +40,7 @@ export const App = () => {
   });
 
   const renderAcceptButton = () => {
-    if (!isEmpty(store.getPositions())) {
+    if (isEmpty(store.getPositions())) {
       return <Pressable style={styles.button} onPress={pressAccept}>
         <Text style={styles.text}>Hyväksy</Text>
       </Pressable>
