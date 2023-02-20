@@ -18,7 +18,7 @@ const getAssignRequestForTasks = (fetchedRoutesJsonObj) => {
 
     for (let i = 1; i < fetchedRoutesJsonObj.features.length; i++) {
       const currentTask = fetchedRoutesJsonObj.features[i];
-      const taskId = null;
+      let taskId = null;
       if (currentTask.taskVersion != 0) {
           taskId = currentTask.taskId;
       }
