@@ -1,4 +1,4 @@
-import testFetch from '../api/RestApiCalls';
+import {testFetch} from '../api/RestApiCalls';
 import mapboxgl from 'mapbox-gl';
 import drawLayersForVehicle from './DrawFunctions';
 

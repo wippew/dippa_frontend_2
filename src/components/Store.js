@@ -8,7 +8,10 @@ export const StoreContext = React.createContext()
 export const StoreProvider = ({ children }) => {
   const store = useLocalObservable(() => ({
     
-
+    depot1Options: null,
+    setDepot1Options: (value) => {
+      store.depot1Options = value;
+    },
     fetchedRoutesJson: null,
     markers: [],
     layersDrawn: false,

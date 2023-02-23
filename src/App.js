@@ -8,6 +8,7 @@ import { isEmpty } from 'lodash'
 import { StoreContext } from './components/Store';
 import { Text, View, StyleSheet, Pressable } from 'react-native';
 import { saveAssignments } from './api/AssignService';
+import { getDepots, getGroupsWithDepotId } from './api/RestApiCalls';
 
 //<pre>{process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}</pre>
 
@@ -48,10 +49,37 @@ export const App = () => {
     }
   }
 
+  const getVehiclesForDepotAsOptions = async () => {
+    const depots = await getDepots();
+    const jsonDepots = JSON.parse(depots);
+    const firstDepot = jsonDepots[0];
+    const firstDepotId = firstDepot.id;
+    const groupsOfFirstDepot = await getGroupsWithDepotId(firstDepotId);
+    
+    const jsonGroupsOfFirstDepot = JSON.parse(groupsOfFirstDepot);
+    const returnState = {};
+    const options = [];
+    for (let i = 0; i < jsonGroupsOfFirstDepot.length; i++) {
+      const current = jsonGroupsOfFirstDepot[i];
+      const id = current.id;
+      const name = current.name;
+      const groupObj = { name: name, id: id};
+      options.push(groupObj);
+    }
+    returnState.options = options;
+
+    store.setDepot1Options(JSON.stringify(returnState));
+    const test = store.depot1Options;
+    
+  }
+
+
+  getVehiclesForDepotAsOptions(); 
+
 
   return useObserver(() => (
     <>
-      <MyForm />;
+      <MyForm/>;
       <div className="mapClass">
         <Map />;
       </div>

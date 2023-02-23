@@ -1,6 +1,7 @@
 import axios from 'axios'
+import base64 from 'react-native-base64'
 
-const testFetch = async (depot1VehicleCount, depot2VehicleCount) => {
+export const testFetch = async (depot1VehicleCount, depot2VehicleCount) => {
     const testJson = createMockJsonObject();
     const url = 'http://localhost:8080/routes';
     try {
@@ -43,5 +44,47 @@ const addVehicleToDepot = (vehicleName, garageObject) => {
 }
 
 
+export const getDepots = async () => {
+    const url = 'http://192.168.50.100/to/REST/v1/optimization/depots';
+    const base64EncodedUserAndPass = base64.encode("KPA02.tyonjohtaja" + ":" + "testi1");
+    try {
+        const config = {
+            url: url,
+            method: 'GET',
+            headers: { Authorization: "Basic " + base64EncodedUserAndPass },
+            transformResponse: [(data) => {
+              return data
+            }]
+          }
+        const response = await axios(config);
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.error(error)
+        console.log(error)
+    }
+    return null
+}
 
-export default testFetch;
+export const getGroupsWithDepotId = async (id) => {
+    const url = 'http://192.168.50.100/to/REST/v1/optimization/' + id;
+    const base64EncodedUserAndPass = base64.encode("KPA02.tyonjohtaja" + ":" + "testi1");
+    try {
+        const config = {
+            url: url,
+            method: 'GET',
+            params: { depotId: id },
+            headers: { Authorization: "Basic " + base64EncodedUserAndPass },
+            transformResponse: [(data) => {
+              return data
+            }]
+          }
+        const response = await axios(config);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        console.log(error);
+    }
+    return null
+}
+

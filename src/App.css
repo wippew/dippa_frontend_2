@@ -32,6 +32,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -103,7 +104,7 @@
   left: 0;
   margin: 12px;
   border-radius: 4px;
-  }
+}
 
 .acceptButton {
   background-color: rgba(32, 249, 3, 0.9);
@@ -119,6 +120,14 @@
   border-radius: 4px;
 }
 
+.option {
+  color: red;
+}
 
+.groupHeading {
+  color: green;
+}
 
-
+.chips {
+  background: purple;
+}

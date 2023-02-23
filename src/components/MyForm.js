@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StoreContext } from './Store';
 import React, { useContext } from 'react';
 import { useObserver } from 'mobx-react'
 import { getRoutes } from './randomFunctions'
 import { toJS } from 'mobx';
+import Multiselect from 'multiselect-react-dropdown';
+import { getDepots, getGroupsWithDepotId } from '../api/RestApiCalls';
+import { isEmpty } from 'lodash'
 
 
 export const MyForm = () => {
@@ -19,19 +22,47 @@ export const MyForm = () => {
     store.positionsDrawn = false;
     store.renderMap();
   }
-  return useObserver(() => (
-    <form className="sidebar" onSubmit={handleSubmit}>
-      <fieldset>
-        <label>
-          <p>Depot 1</p>
-          <input name="depot1" onChange={event => setDepot1(event.target.value)} />
-        </label>
-        <label>
-          <p>Depot 2</p>
-          <input name="depot2" onChange={event => setDepot2(event.target.value)} />
-        </label>
-      </fieldset>
-      <button type="submit">Submit</button>
-    </form>
-  ))
+
+  const onSelect = (selectedList, selectedItem) => {
+  }
+
+  const onRemove = (selectedList, removedItem) => {
+  } 
+
+  
+
+const createMultiSelectIfFetchReady = () => {
+  if (store.depot1Options != null) {
+    const test2Opt = JSON.parse(store.depot1Options).options;
+    return <Multiselect
+          options={test2Opt} // Options to display in the dropdown
+          onSelect={onSelect} // Function will trigger on select event
+          onRemove={onRemove} // Function will trigger on remove event
+          showCheckbox={true}
+          placeholder="Tukikohta 1"
+          displayValue="name" // Property name to display in the dropdown options
+        />
+  } else {
+    const defaultOptions = {
+      options: []
+  };
+  return <Multiselect
+  options={defaultOptions.options} // Options to display in the dropdown
+  onSelect={onSelect} // Function will trigger on select event
+  onRemove={onRemove} // Function will trigger on remove event
+  showCheckbox={true}
+  placeholder="Tukikohta 1"
+  displayValue="name" // Property name to display in the dropdown options
+/>
+
+  }
+}
+return useObserver(() => (
+  <form className="sidebar" onSubmit={handleSubmit}>
+    <fieldset>
+      {createMultiSelectIfFetchReady()}      
+    </fieldset>
+    <button type="submit">Suorita optimointi</button>
+  </form>
+))
 }
