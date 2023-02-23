@@ -49,14 +49,21 @@ export const App = () => {
     }
   }
 
+  const renderGroupsForm = () => {    
+    if (store.depot1Options != null) {
+      const opts = JSON.parse(store.depot1Options);
+      return <MyForm optionsDepot={opts}/>;
+    }
+  }
+
   const getVehiclesForDepotAsOptions = async () => {
     const depots = await getDepots();
-    const jsonDepots = JSON.parse(depots);
+    const jsonDepots = depots;
     const firstDepot = jsonDepots[0];
     const firstDepotId = firstDepot.id;
     const groupsOfFirstDepot = await getGroupsWithDepotId(firstDepotId);
     
-    const jsonGroupsOfFirstDepot = JSON.parse(groupsOfFirstDepot);
+    const jsonGroupsOfFirstDepot = groupsOfFirstDepot;
     const returnState = {};
     const options = [];
     for (let i = 0; i < jsonGroupsOfFirstDepot.length; i++) {
@@ -70,16 +77,17 @@ export const App = () => {
 
     store.setDepot1Options(JSON.stringify(returnState));
     const test = store.depot1Options;
-    
+    const asd = "ASd";
   }
 
 
   getVehiclesForDepotAsOptions(); 
 
 
+
   return useObserver(() => (
     <>
-      <MyForm/>;
+      {renderGroupsForm()};
       <div className="mapClass">
         <Map />;
       </div>
