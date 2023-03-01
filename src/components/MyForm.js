@@ -13,6 +13,8 @@ export const MyForm = (optionsDepot) => {
   const store = useContext(StoreContext)
   const [depot1, setDepot1] = useState("");
   const [depot2, setDepot2] = useState("");
+
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     store.depot1VehicleCount = Number(depot1);
@@ -24,6 +26,8 @@ export const MyForm = (optionsDepot) => {
   }
 
   const onSelect = (selectedList, selectedItem) => {
+    const id = selectedItem.id;
+    store.depot1VehicleIds.push(id);
   }
 
   const onRemove = (selectedList, removedItem) => {

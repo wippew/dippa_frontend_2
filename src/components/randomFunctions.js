@@ -9,7 +9,7 @@ export const getRoutes = async (depot1VehicleCount, depot2VehicleCount, store) =
     const depot2VehicleCountAsNumber = Number(depot2VehicleCount);
     // fetch new data
     // const results = await fetchFakeData(lng, lat);
-    const test = await testFetch(depot1VehicleCountAsNumber, depot2VehicleCountAsNumber);
+    const test = await testFetch(store);
     const positions = [];
     store.fetchedRoutesJson = test;
     // iterate through the feature collection and append marker to the map for each feature

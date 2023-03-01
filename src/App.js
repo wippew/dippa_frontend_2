@@ -58,17 +58,19 @@ export const App = () => {
 
   const getVehiclesForDepotAsOptions = async () => {
     const depots = await getDepots();
-    const jsonDepots = depots;
+    const jsonDepots = JSON.parse(depots);
     const firstDepot = jsonDepots[0];
+    const firstDepotCoords = [firstDepot.latitude, firstDepot.longitude];
+    store.firstDepotCoords = firstDepotCoords;
     const firstDepotId = firstDepot.id;
     const groupsOfFirstDepot = await getGroupsWithDepotId(firstDepotId);
     
-    const jsonGroupsOfFirstDepot = groupsOfFirstDepot;
+    const jsonGroupsOfFirstDepot = JSON.parse(groupsOfFirstDepot);
     const returnState = {};
     const options = [];
     for (let i = 0; i < jsonGroupsOfFirstDepot.length; i++) {
       const current = jsonGroupsOfFirstDepot[i];
-      const id = current.id;
+      const id = current.resourceId;
       const name = current.name;
       const groupObj = { name: name, id: id};
       options.push(groupObj);

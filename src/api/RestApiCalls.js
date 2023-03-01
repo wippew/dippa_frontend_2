@@ -1,8 +1,8 @@
 import axios from 'axios'
 import base64 from 'react-native-base64'
 
-export const testFetch = async (depot1VehicleCount, depot2VehicleCount) => {
-    const testJson = createMockJsonObject();
+export const testFetch = async (store) => {
+    const testJson = createJsonObject(store);
     const url = 'http://localhost:8080/routes';
     try {
         const response = await axios.post(url, testJson);
@@ -15,30 +15,35 @@ export const testFetch = async (depot1VehicleCount, depot2VehicleCount) => {
     return null
 }
 
-const createMockJsonObject = () => {
+const createJsonObject = (store) => {
     const emptyJsonList = [];
-    createDepot(emptyJsonList);
+    createDepot0(store, emptyJsonList);
     return emptyJsonList;
 }
 
-const createDepot = (emptyJson) => {    
+const createDepot0 = (store, emptyJson) => {    
     const newDepot = {};
     newDepot.depotName = "depot0";
     newDepot.order = "0";
     const coordinates = {};
-    coordinates.lat = 60.53811759606013;
-    coordinates.lon = 22.418483915615745;
+    // 60 first
+    coordinates.lat = store.firstDepotCoords[0];
+    coordinates.lon = store.firstDepotCoords[1];
     const vehicles = [];
     newDepot.coordinates = coordinates;
-    newDepot.vehicles = vehicles;    
-    addVehicleToDepot(0, newDepot.vehicles);
+    newDepot.vehicles = vehicles;
+    for (let i = 0; i < store.depot1VehicleIds.length; i++) {
+        const resourceId = store.depot1VehicleIds[0];
+        addVehicleToDepot(i, resourceId, newDepot.vehicles);
+    }
+    
     emptyJson.push(newDepot);
 }
 
-const addVehicleToDepot = (vehicleName, garageObject) => {
+const addVehicleToDepot = (vehicleId, resourceId, garageObject) => {
     const newVehicle = {};
-    newVehicle.id = vehicleName;
-    newVehicle.resourceId = 63406;
+    newVehicle.id = vehicleId;
+    newVehicle.resourceId = resourceId;
     newVehicle.competence = 2;
     garageObject.push(newVehicle);
 }
