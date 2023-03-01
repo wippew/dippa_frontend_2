@@ -5,6 +5,7 @@ import drawLayersForVehicle from './DrawFunctions';
 
 
 export const getRoutes = async (store) => {
+
     // fetch new data
     // const results = await fetchFakeData(lng, lat);
     const test = await testFetch(store);
@@ -14,7 +15,7 @@ export const getRoutes = async (store) => {
     for (let i = 0; i < test.features.length; i++) {
         const currentRes = test.features[i];
         const id = i;
-        const vehicle = currentRes.vehicle;
+        const vehicle = currentRes.vehicleOrder;
         const coordinates = currentRes.coordinates;
         const order = currentRes.order;
         const type = currentRes.type;

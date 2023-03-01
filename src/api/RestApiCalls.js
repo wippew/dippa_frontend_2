@@ -2,6 +2,9 @@ import axios from 'axios'
 import base64 from 'react-native-base64'
 import { isEmpty } from 'lodash'
 
+let vehicleIdCurrent = 0;
+
+
 export const testFetch = async (store) => {
     const testJson = createJsonObject(store);
     const url = 'http://localhost:8080/routes';
@@ -33,21 +36,19 @@ const createJsonObject = (store) => {
 
 const createFirstDepot = (store, emptyJson, order) => {    
     const newDepot = {};
-    newDepot.depotName = "depot0";
+    newDepot.depotName = "FirstDepot";
     newDepot.order = order;
     const coordinates = {};
-    // 60 first
     coordinates.lat = store.firstDepotCoords[0];
     coordinates.lon = store.firstDepotCoords[1];
     const vehicles = [];
     newDepot.coordinates = coordinates;
     newDepot.vehicles = vehicles;
 
-    const asd = store.firstDepotVehicleIds;
 
     for (let i = 0; i < store.firstDepotVehicleIds.length; i++) {
         const resourceId = store.firstDepotVehicleIds[i];
-        addVehicleToDepot(i, resourceId, newDepot.vehicles);
+        addVehicleToDepot(vehicleIdCurrent, resourceId, newDepot.vehicles);
     }
     
     emptyJson.push(newDepot);
@@ -55,29 +56,29 @@ const createFirstDepot = (store, emptyJson, order) => {
 
 const createSecondDepot = (store, emptyJson, order) => {    
     const newDepot = {};
-    newDepot.depotName = "depot1";
+    newDepot.depotName = "SecondDepot";
     newDepot.order = order;
     const coordinates = {};
-    // 60 first
     coordinates.lat = store.secondDepotCoords[0];
     coordinates.lon = store.secondDepotCoords[1];
     const vehicles = [];
     newDepot.coordinates = coordinates;
     newDepot.vehicles = vehicles;
     for (let i = 0; i < store.secondDepotVehicleIds.length; i++) {
-        const resourceId = store.secondDepotVehicleIds[0];
-        addVehicleToDepot(i, resourceId, newDepot.vehicles);
+        const resourceId = store.secondDepotVehicleIds[i];
+        addVehicleToDepot(vehicleIdCurrent, resourceId, newDepot.vehicles);
     }
     
     emptyJson.push(newDepot);
 }
 
-const addVehicleToDepot = (vehicleId, resourceId, garageObject) => {
+const addVehicleToDepot = (vehicleOrder, resourceId, garageObject) => {
     const newVehicle = {};
-    newVehicle.id = vehicleId;
+    newVehicle.vehicleOrder = vehicleOrder;
     newVehicle.resourceId = resourceId;
     newVehicle.competence = 2;
     garageObject.push(newVehicle);
+    vehicleIdCurrent++;
 }
 
 
