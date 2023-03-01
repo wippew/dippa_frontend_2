@@ -1,5 +1,6 @@
 import axios from 'axios'
 import base64 from 'react-native-base64'
+import { isEmpty } from 'lodash'
 
 export const testFetch = async (store) => {
     const testJson = createJsonObject(store);
@@ -17,14 +18,23 @@ export const testFetch = async (store) => {
 
 const createJsonObject = (store) => {
     const emptyJsonList = [];
-    createDepot0(store, emptyJsonList);
+    let orderNumber = 0;
+    if (!isEmpty(store.firstDepotVehicleIds)) {
+        createFirstDepot(store, emptyJsonList, orderNumber.toString());
+        orderNumber++;
+    }
+
+    if (!isEmpty(store.secondDepotVehicleIds)) {
+        createSecondDepot(store, emptyJsonList, orderNumber.toString());
+    }
+    
     return emptyJsonList;
 }
 
-const createDepot0 = (store, emptyJson) => {    
+const createFirstDepot = (store, emptyJson, order) => {    
     const newDepot = {};
     newDepot.depotName = "depot0";
-    newDepot.order = "0";
+    newDepot.order = order;
     const coordinates = {};
     // 60 first
     coordinates.lat = store.firstDepotCoords[0];
@@ -32,8 +42,30 @@ const createDepot0 = (store, emptyJson) => {
     const vehicles = [];
     newDepot.coordinates = coordinates;
     newDepot.vehicles = vehicles;
-    for (let i = 0; i < store.depot1VehicleIds.length; i++) {
-        const resourceId = store.depot1VehicleIds[0];
+
+    const asd = store.firstDepotVehicleIds;
+
+    for (let i = 0; i < store.firstDepotVehicleIds.length; i++) {
+        const resourceId = store.firstDepotVehicleIds[i];
+        addVehicleToDepot(i, resourceId, newDepot.vehicles);
+    }
+    
+    emptyJson.push(newDepot);
+}
+
+const createSecondDepot = (store, emptyJson, order) => {    
+    const newDepot = {};
+    newDepot.depotName = "depot1";
+    newDepot.order = order;
+    const coordinates = {};
+    // 60 first
+    coordinates.lat = store.secondDepotCoords[0];
+    coordinates.lon = store.secondDepotCoords[1];
+    const vehicles = [];
+    newDepot.coordinates = coordinates;
+    newDepot.vehicles = vehicles;
+    for (let i = 0; i < store.secondDepotVehicleIds.length; i++) {
+        const resourceId = store.secondDepotVehicleIds[0];
         addVehicleToDepot(i, resourceId, newDepot.vehicles);
     }
     

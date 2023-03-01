@@ -49,41 +49,60 @@ export const App = () => {
     }
   }
 
-  const renderGroupsForm = () => {    
+  const renderGroupsForm = () => {
     if (store.depot1Options != null) {
       const opts = JSON.parse(store.depot1Options);
-      return <MyForm optionsDepot={opts}/>;
+      return <MyForm optionsDepot={opts} />;
     }
   }
 
   const getVehiclesForDepotAsOptions = async () => {
     const depots = await getDepots();
     const jsonDepots = JSON.parse(depots);
+
     const firstDepot = jsonDepots[0];
+    const readyFirstDepot = await createOptionsForDepot(firstDepot)
     const firstDepotCoords = [firstDepot.latitude, firstDepot.longitude];
-    store.firstDepotCoords = firstDepotCoords;
-    const firstDepotId = firstDepot.id;
-    const groupsOfFirstDepot = await getGroupsWithDepotId(firstDepotId);
+    store.firstDepotCoords = firstDepotCoords; 
+    store.setDepot1Options(JSON.stringify(readyFirstDepot));
+
+    const secondDepot = jsonDepots[1];
+    const readySecondDepot = await createOptionsForDepot(secondDepot);
+    const secondDepotCoords = [secondDepot.latitude, secondDepot.longitude];
+    store.secondDepotCoords = firstDepotCoords; 
+    store.setDepot2Options(JSON.stringify(readySecondDepot));
+
+    const asd1 = store.depot1Options;
+    const asd2 = store.depot2Options;
+    const ba = "asd";
+  }
+
+  const createOptionsForDepot = async (depot) => {
     
-    const jsonGroupsOfFirstDepot = JSON.parse(groupsOfFirstDepot);
+
+    const depotId = depot.id;
+    const groupsOfDepot = await getGroupsWithDepotId(depotId);
+
+    const jsonGroupsOfDepot = JSON.parse(groupsOfDepot);
     const returnState = {};
     const options = [];
-    for (let i = 0; i < jsonGroupsOfFirstDepot.length; i++) {
-      const current = jsonGroupsOfFirstDepot[i];
+    options.depotId = 0;
+    for (let i = 0; i < jsonGroupsOfDepot.length; i++) {
+      const current = jsonGroupsOfDepot[i];
       const id = current.resourceId;
       const name = current.name;
-      const groupObj = { name: name, id: id};
+      const groupObj = { name: name, id: id, depotId: depotId};
+      
       options.push(groupObj);
     }
     returnState.options = options;
+    returnState.depotId = depotId;
+    return returnState
 
-    store.setDepot1Options(JSON.stringify(returnState));
-    const test = store.depot1Options;
-    const asd = "ASd";
   }
 
 
-  getVehiclesForDepotAsOptions(); 
+  getVehiclesForDepotAsOptions();
 
 
 

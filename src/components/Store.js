@@ -9,11 +9,16 @@ export const StoreProvider = ({ children }) => {
   const store = useLocalObservable(() => ({
     
     firstDepotCoords: [],
-    depot1VehicleIds: [],
-    depot2VehicleIds: [],
+    secondDepotCoords: [],
+    firstDepotVehicleIds: [],
+    secondDepotVehicleIds: [],
     depot1Options: null,
     setDepot1Options: (value) => {
       store.depot1Options = value;
+    },
+    depot2Options: null,
+    setDepot2Options: (value) => {
+      store.depot2Options = value;
     },
     fetchedRoutesJson: null,
     markers: [],

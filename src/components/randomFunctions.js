@@ -4,9 +4,7 @@ import drawLayersForVehicle from './DrawFunctions';
 
 
 
-export const getRoutes = async (depot1VehicleCount, depot2VehicleCount, store) => {
-    const depot1VehicleCountAsNumber = Number(depot1VehicleCount);
-    const depot2VehicleCountAsNumber = Number(depot2VehicleCount);
+export const getRoutes = async (store) => {
     // fetch new data
     // const results = await fetchFakeData(lng, lat);
     const test = await testFetch(store);

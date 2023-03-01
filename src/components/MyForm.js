@@ -9,50 +9,71 @@ import { getDepots, getGroupsWithDepotId } from '../api/RestApiCalls';
 import { isEmpty } from 'lodash'
 
 
-export const MyForm = (optionsDepot) => {
+export const MyForm = () => {
   const store = useContext(StoreContext)
-  const [depot1, setDepot1] = useState("");
-  const [depot2, setDepot2] = useState("");
 
-  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    store.depot1VehicleCount = Number(depot1);
-    store.depot2VehicleCount = Number(depot2);
-    const routes = await getRoutes(depot1, depot2, store);
+    const routes = await getRoutes(store);
     store.setPositions(toJS(routes));
     store.positionsDrawn = false;
     store.renderMap();
   }
 
   const onSelect = (selectedList, selectedItem) => {
-    const id = selectedItem.id;
-    store.depot1VehicleIds.push(id);
+    if (selectedItem.depotId == 1) {
+      const id = selectedItem.id;
+      store.firstDepotVehicleIds.push(id);
+    } else if (selectedItem.depotId == 2) {
+      const id = selectedItem.id;
+      store.secondDepotVehicleIds.push(id);
+    }
+
   }
 
   const onRemove = (selectedList, removedItem) => {
-  } 
+    if (removedItem.depotId = 1) {
+      const id = removedItem.id;
+      const index = store.firstDepotVehicleIds.indexOf(id);
+      store.firstDepotVehicleIds.splice(index, 1);
+    } else if (removedItem.depotId = 2) {
+      const id = removedItem.id;
+      const index = store.secondDepotVehicleIds.indexOf(id);
+      store.secondDepotVehicleIds.splice(index, 1);
+    }
+  }
 
 
 
-const createMultiSelectIfFetchReady = () => {
-    const test = optionsDepot.optionsDepot.options;
-    return <Multiselect
-          options={test} // Options to display in the dropdown
-          onSelect={onSelect} // Function will trigger on select event
-          onRemove={onRemove} // Function will trigger on remove event
-          showCheckbox={true}
-          placeholder="Tukikohta 1"
-          displayValue="name" // Property name to display in the dropdown options
-        />
-}
+  const createMultiSelectIfDepotReady = (depot) => {
+    let test = null;
+    if (depot == 1 && !isEmpty(store.depot1Options)) {
+      test = JSON.parse(store.depot1Options);
+    } else if (depot ==2 && !isEmpty(store.depot2Options)){
+      test = JSON.parse(store.depot2Options);
+    }
+    if (!isEmpty(test)) {
+      const options = test.options;
+      const depotName = "Tukikohta " + depot.toString();
+      return <Multiselect
+        options={options} // Options to display in the dropdown
+        onSelect={onSelect} // Function will trigger on select event
+        onRemove={onRemove} // Function will trigger on remove event
+        showCheckbox={true}
+        placeholder={depotName}
+        displayValue="name" // Property name to display in the dropdown options
+      />
+    }
+  }
 
-return useObserver(() => (
-  <form className="sidebar" onSubmit={handleSubmit}>
-    <fieldset>
-      {createMultiSelectIfFetchReady()}      
-    </fieldset>
-    <button type="submit">Suorita optimointi</button>
-  </form>
-))
+  return useObserver(() => (
+    <form className="sidebar" onSubmit={handleSubmit}>
+      <fieldset>
+        {createMultiSelectIfDepotReady(1)}
+        {createMultiSelectIfDepotReady(2)}
+      </fieldset>
+      <button type="submit">Suorita optimointi</button>
+    </form>
+  ))
 }
