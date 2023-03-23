@@ -6,14 +6,14 @@ import { StoreContext } from './Store';
 import { isEmpty } from 'lodash'
 import { useObserver } from 'mobx-react'
 import { toJS } from 'mobx';
-import 'mapbox-gl/dist/mapbox-gl.css';
 
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker'
+
+
+mapboxgl.workerClass = MapboxWorker
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ2VvbWV0cml4ZGV2IiwiYSI6ImNrcHdoYjZsajAxMG4yd253aWIyeHRvdG4ifQ.kB-1WgIHJ3GELwh14NilPw'
-// The following is required to stop "npm build" from transpiling mapbox code.
-// notice the exclamation point in the import.
-// @ts-ignore
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
+
 
 
 export const Map = () => {
