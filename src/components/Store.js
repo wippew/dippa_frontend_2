@@ -31,28 +31,9 @@ export const StoreProvider = ({ children }) => {
     getPositions: () => {
       return store.positions;
     },
-    depot1VehicleCount: null,
-    depot2VehicleCount: null,
     renderMapTrigger: false,
     renderMap: () => {
       store.renderMapTrigger = !store.renderMapTrigger
-    },
-    maintenanceTasks: [],
-    getMaintenanceTasks: () => {
-      return store.maintenanceTasks;
-    },
-    fetchMaintenenceTasks: async (vehicleCount) => {
-      try {
-        if (vehicleCount != null) {
-          store.maintenanceTasks = await getRoutes();
-          if (!isEmpty(store.maintenanceTasks)) {
-            store.renderMap();
-          }
-
-        }
-      } catch (error) {
-        console.error(error)
-      }
     }
   }))
 

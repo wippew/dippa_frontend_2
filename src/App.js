@@ -71,10 +71,6 @@ export const App = () => {
     const secondDepotCoords = [secondDepot.latitude, secondDepot.longitude];
     store.secondDepotCoords = firstDepotCoords; 
     store.setDepot2Options(JSON.stringify(readySecondDepot));
-
-    const asd1 = store.depot1Options;
-    const asd2 = store.depot2Options;
-    const ba = "asd";
   }
 
   const createOptionsForDepot = async (depot) => {

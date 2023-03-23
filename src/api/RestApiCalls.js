@@ -7,7 +7,7 @@ let vehicleIdCurrent = 0;
 
 export const testFetch = async (store) => {
     const testJson = createJsonObject(store);
-    const url = 'http://localhost:8080/routes';
+    const url = '/optimointi-api';
     try {
         const response = await axios.post(url, testJson);
         console.log(response.data);
@@ -83,7 +83,7 @@ const addVehicleToDepot = (vehicleOrder, resourceId, garageObject) => {
 
 
 export const getDepots = async () => {
-    const url = 'http://192.168.50.100/to/REST/v1/optimization/depots';
+    const url = '/to/REST/v1/optimization/depots';
     const base64EncodedUserAndPass = base64.encode("KPA02.tyonjohtaja" + ":" + "testi1");
     try {
         const config = {
@@ -105,7 +105,7 @@ export const getDepots = async () => {
 }
 
 export const getGroupsWithDepotId = async (id) => {
-    const url = 'http://192.168.50.100/to/REST/v1/optimization/' + id;
+    const url = '/to/REST/v1/optimization/' + id;
     const base64EncodedUserAndPass = base64.encode("KPA02.tyonjohtaja" + ":" + "testi1");
     try {
         const config = {
