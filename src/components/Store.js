@@ -8,6 +8,7 @@ export const StoreContext = React.createContext()
 export const StoreProvider = ({ children }) => {
   const store = useLocalObservable(() => ({
     
+    acceptButtonVisible: true,
     firstDepotCoords: [],
     secondDepotCoords: [],
     firstDepotVehicleIds: [],
@@ -34,7 +35,14 @@ export const StoreProvider = ({ children }) => {
     renderMapTrigger: false,
     renderMap: () => {
       store.renderMapTrigger = !store.renderMapTrigger
-    }
+    },
+    clearMap: () => {
+      if (store.markers.length > 0) {
+          for (const currentMarker of store.markers) {
+              currentMarker.remove()
+          }
+      }
+  }
   }))
 
   return (

@@ -15,10 +15,14 @@ export const MyForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const button = event.target.querySelector('button[type="submit"]');
+    button.disabled = true;
     const routes = await getRoutes(store);
     store.setPositions(toJS(routes));
     store.positionsDrawn = false;
     store.renderMap();
+    button.disabled = false; // Re-enable the button
+    store.acceptButtonVisible = true;
   }
 
   const onSelect = (selectedList, selectedItem) => {
@@ -73,7 +77,7 @@ export const MyForm = () => {
         {createMultiSelectIfDepotReady(1)}
         {createMultiSelectIfDepotReady(2)}
       </fieldset>
-      <button type="submit">Suorita optimointi</button>
+      <button type="submit" disabled={false}>Suorita optimointi</button>
     </form>
   ))
 }

@@ -1,5 +1,5 @@
 /* src/App.js */
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import './App.css';
 import { MyForm } from './components/MyForm';
 import { Map } from './components/Map';
@@ -13,11 +13,13 @@ import { getDepots, getGroupsWithDepotId } from './api/RestApiCalls';
 //<pre>{process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}</pre>
 
 export const App = () => {
+
   const store = useContext(StoreContext);
+
   const pressAccept = () => {
-    alert("You are now pointing routes to their corresponding groups");
-    const test = store.fetchedRoutesJson;
     saveAssignments(store.fetchedRoutesJson);
+    store.clearMap();
+    store.acceptButtonVisible = false; // Hide the button
   }
 
   const styles = StyleSheet.create({
@@ -42,10 +44,13 @@ export const App = () => {
   });
 
   const renderAcceptButton = () => {
-    if (!isEmpty(store.getPositions())) {
+    const acceptButtonVisible = store.acceptButtonVisible;
+    if (!isEmpty(store.getPositions()) && acceptButtonVisible) {
       return <Pressable style={styles.button} onPress={pressAccept}>
         <Text style={styles.text}>Hyväksy</Text>
       </Pressable>
+    } else {
+      return null;
     }
   }
 

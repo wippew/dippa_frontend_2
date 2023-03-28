@@ -18,13 +18,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiZ2VvbWV0cml4ZGV2IiwiYSI6ImNrcHdoYjZsajAxMG4yd
 
 export const Map = () => {
 
-    const clearMap = () => {
-        if (store.markers.length > 0) {
-            for (const currentMarker of store.markers) {
-                currentMarker.remove()
-            }
-        }
-    }
+    
     const mapContainer = useRef(null);
     /* References */
     const store = useContext(StoreContext)
@@ -37,7 +31,7 @@ export const Map = () => {
                 container: mapContainer.current,
                 // See style options here: https://docs.mapbox.com/api/maps/#styles
                 style: 'mapbox://styles/mapbox/streets-v11',
-                center: [24.878853391086857, 60.20673161432754],
+                center: [23.648192337, 60.06553424],
                 zoom: 10,
             });
             // add navigation control (the +/- zoom buttons)
@@ -47,7 +41,7 @@ export const Map = () => {
             const positionsAsJsArray = toJS(store.positions);
             if (!isEmpty(positionsAsJsArray)) {
                 if (!store.positionsDrawn) {
-                    clearMap();
+                    store.clearMap();
                     drawPositionsOnMap(positionsAsJsArray, map.current, store);
                     store.positionsDrawn = true;
                 }
