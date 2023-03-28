@@ -49,7 +49,7 @@ export const saveAssignments = async (fetchedRoutesJson) => {
 
 // UPDATE SINGLE TASKS
 const postAssignment = async (requestBody) => {
-  const url = 'http://192.168.50.100/to/REST/' + 'v1/assignments/batchassign'
+  const url = '/to/REST/' + 'v1/assignments/batchassign'
   const base64EncodedUserAndPass = base64.encode("KPA02.tyonjohtaja" + ":" + "testi1");
   try {
     const config = {
